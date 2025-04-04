@@ -1,0 +1,14 @@
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.AssemblyInfoInputs.cache
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.AssemblyInfo.cs
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.csproj.CoreCompileInputs.cache
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\bin\Debug\net8.0\GestorEscolarApp.exe
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\bin\Debug\net8.0\GestorEscolarApp.deps.json
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\bin\Debug\net8.0\GestorEscolarApp.runtimeconfig.json
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\bin\Debug\net8.0\GestorEscolarApp.dll
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\bin\Debug\net8.0\GestorEscolarApp.pdb
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.dll
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\refint\GestorEscolarApp.dll
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.pdb
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.genruntimeconfig.cache
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\ref\GestorEscolarApp.dll
