@@ -1,19 +1,23 @@
-using System.Text.Json;
+using Newtonsoft.Json;
+using System.IO;
 
-namespace Servicios;
-
-public class JsonService<T>
+namespace Clase3Tp1.Servicios
 {
-    public List<T> Leer(string archivo)
+    public static class JsonService
     {
-        if (!File.Exists(archivo)) return new List<T>();
-        string json = File.ReadAllText(archivo);
-        return JsonSerializer.Deserialize<List<T>>(json) ?? new List<T>();
-    }
+        public static List<T> Cargar<T>(string archivo) 
+       {
+            if (!File.Exists(archivo))
+                return new List<T>();
 
-    public void Guardar(string archivo, List<T> datos)
-    {
-        string json = JsonSerializer.Serialize(datos, new JsonSerializerOptions { WriteIndented = true });
-        File.WriteAllText(archivo, json);
+            string json = File.ReadAllText(archivo);
+            return JsonConvert.DeserializeObject<List<T>>(json) ?? new List<T>();
+        }
+
+        public static void Guardar<T>(string archivo, List<T> datos)
+        {
+            string json = JsonConvert.SerializeObject(datos, Formatting.Indented);
+            File.WriteAllText(archivo, json);
+        }
     }
 }

@@ -12,4 +12,28 @@ C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarAp
 C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.pdb
 C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.genruntimeconfig.cache
 C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\ref\GestorEscolarApp.dll
+<<<<<<< HEAD
 C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.sourcelink.json
+=======
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\bin\Debug\net8.0\GestorEscolarApp.exe
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\bin\Debug\net8.0\GestorEscolarApp.deps.json
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\bin\Debug\net8.0\GestorEscolarApp.runtimeconfig.json
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\bin\Debug\net8.0\GestorEscolarApp.dll
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\bin\Debug\net8.0\GestorEscolarApp.pdb
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.AssemblyInfoInputs.cache
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.AssemblyInfo.cs
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.sourcelink.json
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.dll
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\refint\GestorEscolarApp.dll
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.pdb
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.genruntimeconfig.cache
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\ref\GestorEscolarApp.dll
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEscolarApp.csproj.AssemblyReference.cache
+C:\Users\Usuario\source\repoClonado\GestorEscolarC-\obj\Debug\net8.0\GestorEs.E87841C6.Up2Date
+>>>>>>> f44a963c7dcbb03f59efe5e8ac156c6477f08dbd
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.csproj.AssemblyReference.cache
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEs.E87841C6.Up2Date

@@ -1,0 +1,38 @@
+[
+  {
+    "CodigoGrupo": "123",
+    "EstudiantesDNI": [
+      "3245",
+      "3245"
+    ],
+    "Participado": false
+  },
+  {
+    "CodigoGrupo": "A",
+    "EstudiantesDNI": [],
+    "Participado": false
+  },
+  {
+    "CodigoGrupo": "B",
+    "EstudiantesDNI": [],
+    "Participado": false
+  },
+  {
+    "CodigoGrupo": "A",
+    "EstudiantesDNI": [
+      "1",
+      "2"
+    ],
+    "Participado": false
+  },
+  {
+    "CodigoGrupo": "C",
+    "EstudiantesDNI": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "Participado": false
+  }
+]
