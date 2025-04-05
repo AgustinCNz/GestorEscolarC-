@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "BngqxL2ClTI=",
+  "dgSpecHash": "g/bcvuuKjFI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Gusti\\source\\programacionIII2025\\primerTP\\GestorEscolar\\GestorEscolarApp\\GestorEscolarApp.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Usuario\\source\\repoClonado\\GestorEscolarC-\\GestorEscolarApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Usuario\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

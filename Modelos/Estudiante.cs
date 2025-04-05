@@ -1,11 +1,14 @@
-namespace Modelos;
-
-public class Estudiante 
+namespace Clase3Tp1.Modelos
 {
-    public string Dni { get; set; } = "" ;
-    public string Apellido { get; set; } = "" ;
-    public string Nombre { get; set; } = "" ;
-    public string Correo { get; set; } = "" ;
-    public string CodigoGrupo { get; set; } = "NO ASIGNADO";
-    public bool YaParticipo { get; set; } = false;
+    public class Estudiante
+    {
+        public string DNI { get; set; } = "";
+    public string Apellido { get; set; } = "";
+    public string Nombre { get; set; } = "";
+    public string Correo { get; set; } = "";
+     public string CodigoGrupo { get; set; } = "";
+     public bool Presente { get; set; } = false;
+    public bool Participado { get; set; } = false;
+    
+    }
 }
