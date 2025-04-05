@@ -1,72 +1,114 @@
-﻿using Modelos;
-using Servicios;
+﻿using System;
+using Clase3Tp1.Servicios;
+using Clase3Tp1.Modelos;
+using System.Security.Cryptography;
 
-string ruta = "Datos/alumnos.json";
-JsonService<Estudiante> jsonService = new JsonService<Estudiante>();
-List<Estudiante> estudiantes = jsonService.Leer(ruta);
-
-while (true)
+class Program
 {
-    Console.Clear();
-    Console.WriteLine("== MENU PRINCIPAL ==");
-    Console.WriteLine("1) Agregar Estudiante");
-    Console.WriteLine("2) Ver Estudiantes");
-    Console.WriteLine("3) Salir");
-    Console.Write("Opcion: ");
-    string opcion = Console.ReadLine() ?? "" ;
-
-    switch (opcion)
+    static void Main()
     {
-        case "1": Agregar(estudiantes, jsonService, ruta);
-        break;
-        case "2": Ver(estudiantes);
-        break;
-        case "3": return;
-        default: 
-        Console.WriteLine("Opcion invalida.");
-        break;
-
-    }
-
-    Console.WriteLine("Presione una tecla para continuar...");
-    Console.ReadKey();
-}
-
-void Agregar(List<Estudiante> lista, JsonService<Estudiante> servicio, string ruta)
-{
-    Console.Write("DNI: ");
-    string dni = Console.ReadLine() ?? "" ;
-    Console.Write("Apellido: ");
-    string apellido = Console.ReadLine() ?? "" ;
-    Console.Write("Nombre: ");
-    string nombre = Console.ReadLine() ?? "" ;
-    Console.Write("Correo: ");
-    string correo = Console.ReadLine() ?? "" ;
-
-    Console.Write(" Guardar estudiante? (SI/NO): ");
-    if ((Console.ReadLine() ?? "") .ToUpper() == "SI")
-    { 
-        lista.Add(new Estudiante 
+        while (true)
         {
-            Dni = dni,
-            Apellido = apellido,
-            Nombre = nombre,
-            Correo = correo
-        });
+            Console.Clear();
+            Console.WriteLine("[MENU PRINCIPAL]");
+            Console.WriteLine("1) ESTUDIANTES");
+            Console.WriteLine("2) GRUPOS");
+            Console.WriteLine("3) ASISTENCIAS");
+            Console.WriteLine("4) SALIR");
+            Console.Write("Selecciona una opción: ");
+            string? opcion = Console.ReadLine();
 
-        servicio.Guardar(ruta, lista);
-        Console.WriteLine("Guardado correctamente.");
+            switch (opcion)
+            {
+                case "1":
+                    MenuEstudiantes();
+                    break;
+                case "2":
+                    MenuGrupos();
+                    break;
+                case "3":
+                    MenuAsistencias();
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Opción inválida.");
+                    Console.ReadKey();
+                    break;
+            }
+        }
     }
-    else 
-    {
-        Console.WriteLine("Carga cancelada.");
-    }
-}
 
-void Ver(List<Estudiante> lista)
-{
-    foreach (var e in lista)
+    static void MenuEstudiantes()
     {
-        Console.WriteLine($"{e.Apellido}, {e.Nombre} - DNI: {e.Dni} - {e.Correo} - Grupo: {e.CodigoGrupo}");
+        Console.Clear();
+        Console.WriteLine("1) Alta de Estudiante");
+        Console.WriteLine("2) Buscar estudiante");
+        Console.WriteLine("3) Mostrar datos del estudiante");
+        Console.WriteLine("4) Modificar datos del estudiante");
+        Console.WriteLine("5) Eliminar estudiante");
+        Console.WriteLine("6) Sorteo");
+        Console.WriteLine("7) Volver");
+
+        string? opcion = Console.ReadLine();
+        if (opcion == "7") return;
+        switch (opcion)
+            {
+                case "1":
+                     EstudianteService.AltaEstudiante();
+                    break;
+                case "2":
+                    EstudianteService.BuscarEstudiantePorDniOApellido();
+                    break;
+                case "3":
+                    EstudianteService.BuscarYMostrarEstudiante();
+                    break;
+                case "4":
+                    EstudianteService.ModificarEstudiante();
+                    break;
+                case "5":
+                    EstudianteService.EliminarEstudiante();
+                    break;
+                case "6":
+                    EstudianteService.SorteoEstudiante();
+                    break;
+                default:
+                    Console.WriteLine("Opción inválida.");
+                    Console.ReadKey();
+                    break;
+            }
+
+    }
+
+
+
+
+
+
+
+    static void MenuGrupos()
+    {
+        Console.Clear();
+        Console.WriteLine("1) Crear grupo");
+        Console.WriteLine("2) Modificar grupo");
+        Console.WriteLine("3) Eliminar grupo");
+        Console.WriteLine("4) Ver grupos");
+        Console.WriteLine("5) Sorteo por grupo");
+        Console.WriteLine("6) Volver");
+
+        string? opcion = Console.ReadLine();
+        if (opcion == "6") return;
+    }
+
+    static void MenuAsistencias()
+    {
+        Console.Clear();
+        Console.WriteLine("1) Registrar asistencia");
+        Console.WriteLine("2) Ver asistencia por alumno");
+        Console.WriteLine("3) Ver asistencia general");
+        Console.WriteLine("4) Volver");
+
+        string? opcion = Console.ReadLine();
+        if (opcion == "4") return;
     }
 }
