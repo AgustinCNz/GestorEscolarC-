@@ -48,7 +48,7 @@ namespace Clase3Tp1.Servicios
                 string apellido = LeerDato("Apellido: ");
                 string nombre = LeerDato("Nombre: ");
                 string correo = LeerDato("Correo Electrónico: ");
-                string codigoGrupo = LeerDato("Código de Grupo: ");
+                //string codigoGrupo = LeerDato("Código de Grupo: ");
 
                 var nuevoEstudiante = new Estudiante
                 {
@@ -56,7 +56,7 @@ namespace Clase3Tp1.Servicios
                     Apellido = apellido,
                     Nombre = nombre,
                     Correo = correo,
-                    CodigoGrupo = codigoGrupo
+                  //  CodigoGrupo = codigoGrupo
                 };
 
                 MostrarDatosEstudiante(nuevoEstudiante);
@@ -73,14 +73,13 @@ namespace Clase3Tp1.Servicios
                         estudiantes.Add(nuevoEstudiante);
                         JsonService.Guardar(archivoEstudiantes, estudiantes);
                         Console.WriteLine("✅ Estudiante agregado correctamente.");
-                        Console.ReadKey();
+                       
                         return;
 
                     case "2":
-                        Console.WriteLine("❌ Operación cancelada. Vuelva a ingresar los datos.");
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
+                        Console.WriteLine("❌ Operación cancelada. Vuelva al menu principal.");
+                      
+                        return;
 
                     default:
                         Console.WriteLine("⚠ Opción inválida. Ingrese 1 para Sí o 2 para No.");
@@ -91,49 +90,104 @@ namespace Clase3Tp1.Servicios
             }
         }
 
-        public static Estudiante? BuscarEstudiantePorDniOApellido()
+       public static void BuscarYMostrarEstudiantePorDniOApellido()
+{
+    Console.Clear();
+    var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
+
+    while (true)
+    {
+        Console.WriteLine("Buscar estudiante por:");
+        Console.WriteLine("1. DNI");
+        Console.WriteLine("2. Apellido");
+        Console.WriteLine("3. Volver al menú anterior");
+        Console.Write("Opción: ");
+        string opcion = Console.ReadLine()?.Trim() ?? "";
+
+        Estudiante? encontrado = null;
+
+        if (opcion == "1")
         {
-            Console.Clear();
-            var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes); // Cargar lista aquí también
-
-            Console.WriteLine("Buscar estudiante por:");
-            Console.WriteLine("1. DNI");
-            Console.WriteLine("2. Apellido");
-            Console.Write("Opción: ");
-            string opcion = Console.ReadLine()?.Trim() ?? "";
-
-            if (opcion == "1")
-            {
-                string dni = LeerDato("Ingrese el DNI: ");
-                return estudiantes.Find(e => e.DNI == dni);
-            }
-            else if (opcion == "2")
-            {
-                string apellido = LeerDato("Ingrese el Apellido: ");
-                return estudiantes.Find(e => e.Apellido?.Equals(apellido, StringComparison.OrdinalIgnoreCase) ?? false);
-            }
-
+            string dni = LeerDato("Ingrese el DNI: ");
+            encontrado = estudiantes.Find(e => e.DNI == dni);
+        }
+        else if (opcion == "2")
+        {
+            string apellido = LeerDato("Ingrese el Apellido: ");
+            encontrado = estudiantes.Find(e => e.Apellido?.Equals(apellido, StringComparison.OrdinalIgnoreCase) ?? false);
+        }
+        else if (opcion == "3")
+        {
+            Console.WriteLine("↩ Volviendo al menú...");
+           
+           // Console.ReadKey();
+            return; // Salir del método y volver al menú anterior
+        }
+        else
+        {
             Console.WriteLine("⚠ Opción inválida.");
             Console.ReadKey();
+            Console.Clear();
+            continue;
+        }
+
+      if (encontrado != null)
+    {
+           Console.WriteLine("\n✅ Estudiante encontrado:");
+          MostrarDatosEstudiante(encontrado);
+
+         Console.WriteLine("\nPresione una tecla para volver al menú de búsqueda...");
+          Console.ReadKey();
+           Console.Clear();
+          continue; // 🔁 vuelve al menú de búsqueda (no al principal)
+    }
+        else
+        {
+            Console.WriteLine("❌ No se encontró ningún estudiante con ese dato.");
+            Console.WriteLine("¿Desea volver a intentarlo?");
+            Console.WriteLine("1. Sí");
+            Console.WriteLine("2. No");
+            string continuar = Console.ReadLine()?.Trim() ?? "";
+            if (continuar != "1") return;
+            Console.Clear();
+        }
+    }
+}
+     public static Estudiante? BuscarEstudiantePorDniOApellido(string titulo = "Buscar estudiante por:")
+{
+    var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
+
+    while (true)
+    {
+        Console.Clear();
+        Console.WriteLine(titulo);
+        Console.WriteLine("1. DNI");
+        Console.WriteLine("2. Apellido");
+        Console.WriteLine("3. Volver");
+        Console.Write("Opción: ");
+        string opcion = Console.ReadLine()?.Trim() ?? "";
+
+        if (opcion == "1")
+        {
+            string dni = LeerDato("Ingrese el DNI: ");
+            return estudiantes.Find(e => e.DNI == dni);
+        }
+        else if (opcion == "2")
+        {
+            string apellido = LeerDato("Ingrese el Apellido: ");
+            return estudiantes.Find(e => e.Apellido?.Equals(apellido, StringComparison.OrdinalIgnoreCase) ?? false);
+        }
+        else if (opcion == "3")
+        {
             return null;
         }
-
-        public static void BuscarYMostrarEstudiante()
+        else
         {
-            Console.Clear();
-            Estudiante? estudiante = BuscarEstudiantePorDniOApellido();
-
-            if (estudiante == null)
-            {
-                Console.WriteLine("⚠ Estudiante no encontrado.");
-            }
-            else
-            {
-                MostrarDatosEstudiante(estudiante);
-            }
-
+            Console.WriteLine("⚠ Opción inválida.");
             Console.ReadKey();
         }
+    }
+}
 
 
       public static void ModificarEstudiante()
@@ -141,7 +195,7 @@ namespace Clase3Tp1.Servicios
     Console.Clear();
     var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
 
-    Estudiante? estudiante = BuscarEstudiantePorDniOApellido();
+    Estudiante? estudiante = BuscarEstudiantePorDniOApellido("Modificar estudiante por:");
 
     if (estudiante == null)
     {
@@ -165,11 +219,12 @@ namespace Clase3Tp1.Servicios
     while (seguirModificando)
     {
         Console.WriteLine("\nSeleccione el dato a modificar:");
-        Console.WriteLine("1. DNI");
-        Console.WriteLine("2. Apellido");
-        Console.WriteLine("3. Nombre");
-        Console.WriteLine("4. Correo");
-        Console.WriteLine("5. Código de Grupo");
+        Console.WriteLine("1. CAMBIAR DNI");
+        Console.WriteLine("2. CAMBIAR  Apellido");
+        Console.WriteLine("3. CAMBIAR Nombre");
+        Console.WriteLine("4. CAMBIAR Correo");
+        Console.WriteLine("5. CAMBIAR Código de Grupo");
+        Console.WriteLine("");
         Console.WriteLine("6. Modificar todos");
         Console.WriteLine("7. Salir sin modificar");
         Console.Write("Opción: ");
@@ -226,7 +281,7 @@ namespace Clase3Tp1.Servicios
     var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
 
     // Buscar estudiante
-    Estudiante? estudiante = BuscarEstudiantePorDniOApellido();
+    Estudiante? estudiante = BuscarEstudiantePorDniOApellido("Eliminar estudiante por: ");
 
     if (estudiante == null)
     {
@@ -246,7 +301,7 @@ namespace Clase3Tp1.Servicios
     if (opcion == "1")
     {
         // Eliminar y guardar
-        estudiantes.RemoveAll(e => e.DNI == estudiante.DNI);
+        estudiantes.RemoveAll(e => e.DNI == estudiante.DNI || e.Apellido == estudiante.Apellido);
         JsonService.Guardar(archivoEstudiantes, estudiantes);
 
         Console.WriteLine("✅ Estudiante eliminado correctamente.");
@@ -260,61 +315,70 @@ namespace Clase3Tp1.Servicios
 }
 
 
-    public static void SorteoEstudiante()
+public static void SorteoEstudiante()
 {
     Console.Clear();
-    var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
+    var estudiantes = JsonService.Cargar<Estudiante>("Datos/alumnos.json");
+    var asistencias = JsonService.Cargar<Asistencia>("Datos/asistencias.json");
 
-    // Filtrar estudiantes presentes que aún no han participado
-    var estudiantesPresentes = estudiantes.FindAll(e => e.Presente && !e.Participado);
+    string fechaHoy = DateTime.Today.ToString("yyyy-MM-dd");
 
-    if (estudiantesPresentes.Count == 0)
+    // Filtrar estudiantes presentes hoy
+    var presentesHoy = asistencias
+        .Where(a => a.Fecha.ToString("yyyy-MM-dd") == fechaHoy && a.EstaPresente)
+        .Select(a => a.DNI)
+        .ToList();
+
+    var candidatos = estudiantes
+        .Where(e => presentesHoy.Contains(e.DNI))
+        .ToList();
+
+    if (candidatos.Count == 0)
     {
-        Console.WriteLine("Todos los estudiantes presentes ya participaron. Reiniciando participación...");
-
-        foreach (var estudiante in estudiantes)
-        {
-            if (estudiante.Presente)
-                estudiante.Participado = false;
-        }
-
-        // Volver a cargar la lista con los reiniciados
-        estudiantesPresentes = estudiantes.FindAll(e => e.Presente);
+        Console.WriteLine("⚠ No hay estudiantes presentes hoy para realizar el sorteo.");
+        Console.ReadKey();
+        return;
     }
 
-    if (estudiantesPresentes.Count == 0)
+    // Verificar si todos ya participaron
+    if (candidatos.All(e => e.Participado))
     {
-        Console.WriteLine("❌ No hay estudiantes presentes para el sorteo.");
+        Console.WriteLine("🔁 Todos los estudiantes ya participaron. Reiniciando participación...");
+        foreach (var e in candidatos)
+        {
+            e.Participado = false;
+        }
+        JsonService.Guardar("Datos/alumnos.json", estudiantes);
+    }
+
+    // Buscar estudiantes que no participaron aún
+    var noParticiparon = candidatos
+        .Where(e => !e.Participado)
+        .ToList();
+
+    // Mostrar uno aleatorio
+    var random = new Random();
+    var seleccionado = noParticiparon[random.Next(noParticiparon.Count)];
+
+    Console.WriteLine($"\n🎯 Estudiante seleccionado: {seleccionado.Nombre} {seleccionado.Apellido} (DNI: {seleccionado.DNI})");
+
+    Console.Write("\n¿Confirmar participación? (1. Sí / 2. No): ");
+    string? confirmacion = Console.ReadLine()?.Trim();
+
+    if (confirmacion == "1")
+    {
+        seleccionado.Participado = true;
+        JsonService.Guardar("Datos/alumnos.json", estudiantes);
+        Console.WriteLine("✅ Participación registrada.");
     }
     else
     {
-        Random rand = new Random();
-        Estudiante seleccionado = estudiantesPresentes[rand.Next(estudiantesPresentes.Count)];
-
-        Console.WriteLine($"🎉 El estudiante seleccionado es: {seleccionado.Nombre} {seleccionado.Apellido}");
-        Console.Write("¿Confirmar participación? (S/N): ");
-        string respuesta = Console.ReadLine()?.Trim().ToUpper() ?? "N";
-
-        if (respuesta == "S")
-        {
-            // Marcar como que ya participó
-            var index = estudiantes.FindIndex(e => e.DNI == seleccionado.DNI);
-            if (index != -1)
-            {
-                estudiantes[index].Participado = true;
-                JsonService.Guardar(archivoEstudiantes, estudiantes);
-                Console.WriteLine("✅ Participación registrada.");
-            }
-        }
-        else
-        {
-            Console.WriteLine("ℹ El estudiante no participó. Seguirá en el próximo sorteo.");
-        }
+        Console.WriteLine("❌ No se registró la participación.");
     }
 
     Console.WriteLine("\nPresione una tecla para continuar...");
     Console.ReadKey();
-    }
+}
 
     }
 }

@@ -1,10 +1,82 @@
 [
   {
-    "DNI": "34286248",
+    "DNI": "dsad",
+    "Apellido": "dada",
+    "Nombre": "asdasd",
+    "Correo": "adsasd",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "3245",
     "Apellido": "carrizo",
     "Nombre": "cyntia",
-    "Correo": "carrizocyntia22@gmail.com",
+    "Correo": "ca@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "1",
+    "Apellido": "1",
+    "Nombre": "1",
+    "Correo": "1",
+    "CodigoGrupo": "A",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "2",
+    "Apellido": "2",
+    "Nombre": "2",
+    "Correo": "2",
     "CodigoGrupo": "1",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "3",
+    "Apellido": "3",
+    "Nombre": "3",
+    "Correo": "3",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "4",
+    "Apellido": "4",
+    "Nombre": "4",
+    "Correo": "4",
+    "CodigoGrupo": "C",
+    "Presente": false,
+    "Participado": true
+  },
+  {
+    "DNI": "5",
+    "Apellido": "5",
+    "Nombre": "5",
+    "Correo": "5",
+    "CodigoGrupo": "C",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "6",
+    "Apellido": "6",
+    "Nombre": "6",
+    "Correo": "6",
+    "CodigoGrupo": "C",
+    "Presente": false,
+    "Participado": true
+  },
+  {
+    "DNI": "7",
+    "Apellido": "7",
+    "Nombre": "7",
+    "Correo": "7",
+    "CodigoGrupo": "C",
     "Presente": false,
     "Participado": false
   }

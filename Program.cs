@@ -27,7 +27,8 @@ class Program
                     MenuGrupos();
                     break;
                 case "3":
-                    MenuAsistencias();
+                     MenuAsistencias();
+;
                     break;
                 case "4":
                     return;
@@ -40,45 +41,47 @@ class Program
     }
 
     static void MenuEstudiantes()
+{
+    while (true)
     {
         Console.Clear();
         Console.WriteLine("1) Alta de Estudiante");
         Console.WriteLine("2) Buscar estudiante");
-        Console.WriteLine("3) Mostrar datos del estudiante");
-        Console.WriteLine("4) Modificar datos del estudiante");
-        Console.WriteLine("5) Eliminar estudiante");
-        Console.WriteLine("6) Sorteo");
-        Console.WriteLine("7) Volver");
+        Console.WriteLine("3) Modificar datos del estudiante");
+        Console.WriteLine("4) Eliminar estudiante");
+        Console.WriteLine("5) Sorteo");
+        Console.WriteLine("6) Volver");
 
         string? opcion = Console.ReadLine();
-        if (opcion == "7") return;
-        switch (opcion)
-            {
-                case "1":
-                     EstudianteService.AltaEstudiante();
-                    break;
-                case "2":
-                    EstudianteService.BuscarEstudiantePorDniOApellido();
-                    break;
-                case "3":
-                    EstudianteService.BuscarYMostrarEstudiante();
-                    break;
-                case "4":
-                    EstudianteService.ModificarEstudiante();
-                    break;
-                case "5":
-                    EstudianteService.EliminarEstudiante();
-                    break;
-                case "6":
-                    EstudianteService.SorteoEstudiante();
-                    break;
-                default:
-                    Console.WriteLine("Opción inválida.");
-                    Console.ReadKey();
-                    break;
-            }
 
+        if (opcion == "7") break; // ← ahora rompe el bucle y vuelve al menú principal
+
+        switch (opcion)
+        {
+            case "1":
+                EstudianteService.AltaEstudiante();
+                break;
+            case "2":
+                EstudianteService.BuscarYMostrarEstudiantePorDniOApellido();
+                break;
+            case "3":
+               EstudianteService.ModificarEstudiante();
+                break;
+            case "4":
+                 EstudianteService.EliminarEstudiante();
+                break;
+            case "5":
+                EstudianteService.SorteoEstudiante();
+                break;
+            case "6":
+                return; // Volver al menú principal
+            default:
+                Console.WriteLine("Opción inválida.");
+                Console.ReadKey();
+                break;
+        }
     }
+}
 
 
 
@@ -88,27 +91,88 @@ class Program
 
     static void MenuGrupos()
     {
-        Console.Clear();
-        Console.WriteLine("1) Crear grupo");
-        Console.WriteLine("2) Modificar grupo");
-        Console.WriteLine("3) Eliminar grupo");
-        Console.WriteLine("4) Ver grupos");
-        Console.WriteLine("5) Sorteo por grupo");
-        Console.WriteLine("6) Volver");
+        while (true){
+            Console.Clear();
+            Console.WriteLine("[MENU GRUPOS]");
+            Console.WriteLine("1) Crear grupo");
+            Console.WriteLine("2) Modificar grupo");
+            Console.WriteLine("3) Mover estudiante entre grupos");
+            Console.WriteLine("4) Eliminar grupo");
+            Console.WriteLine("5) ver grupos");
+            Console.WriteLine("6) Estudiantes sin grupos");
+            Console.WriteLine("7) Grupos con menos de 6 estudiantes");
+            Console.WriteLine("8) Sorteo por grupo");
+            Console.WriteLine("9) Volver al menu principal");
 
         string? opcion = Console.ReadLine();
-        if (opcion == "6") return;
-    }
+        if (opcion == "9") return;
 
-    static void MenuAsistencias()
+        switch (opcion)
+        {
+            case "1":
+                GrupoService.CrearGrupo();
+                break;
+            case "2":
+                GrupoService.ModificarGrupo();
+                break;
+            case "3":
+              GrupoService.MoverEstudianteDeGrupo();
+                break;
+            case "4":
+                 GrupoService.EliminarGrupo();
+                break;
+            case "5":
+            GrupoService.MostrarGruposConEstudiantes();
+                break;
+            case "6":
+                GrupoService.MostrarEstudiantesSinGrupo();
+              break; // Volver al menú principal
+            case "7":
+                GrupoService.MostrarGruposIncompletos();
+              break;
+            case "8":
+                GrupoService.SorteoPorGrupo();
+              break;
+
+            default:
+                Console.WriteLine("Opción inválida.");
+                Console.ReadKey();
+                break;
+    }
+        }
+       
+
+
+
+
+   
+}
+static void MenuAsistencias()
     {
         Console.Clear();
         Console.WriteLine("1) Registrar asistencia");
-        Console.WriteLine("2) Ver asistencia por alumno");
-        Console.WriteLine("3) Ver asistencia general");
+        Console.WriteLine("2) Ver asistencia por alumno , clases dictadas y porcentajes de asistencia");
+        Console.WriteLine("3) Ver asistencia por DNI o Apellido");
         Console.WriteLine("4) Volver");
 
         string? opcion = Console.ReadLine();
         if (opcion == "4") return;
+
+         switch (opcion)
+        {
+            case "1":
+               AsistenciaService.RegistrarAsistencia();
+                break;
+            case "2":
+                AsistenciaService.AsistenciasGeneral();
+                break;
+            case "3":
+           AsistenciaService.AsistenciaPorDniOApellido();
+                break;
+
+            default:
+                Console.WriteLine("Opción inválida.");
+                Console.ReadKey();
+                break;
     }
-}
+    }}

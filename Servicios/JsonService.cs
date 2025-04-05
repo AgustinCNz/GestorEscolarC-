@@ -5,8 +5,8 @@ namespace Clase3Tp1.Servicios
 {
     public static class JsonService
     {
-        public static List<T> Cargar<T>(string archivo)
-        {
+        public static List<T> Cargar<T>(string archivo) 
+       {
             if (!File.Exists(archivo))
                 return new List<T>();
 

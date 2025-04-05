@@ -1,0 +1,92 @@
+[
+  {
+    "DNI": "1",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "2",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": false
+  },
+  {
+    "DNI": "4",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "5",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "6",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "7",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": false
+  },
+  {
+    "DNI": "1",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "2",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": false
+  },
+  {
+    "DNI": "4",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "5",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "6",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "7",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "1",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "2",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "4",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "5",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "6",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  },
+  {
+    "DNI": "7",
+    "Fecha": "2025-04-05T00:00:00-03:00",
+    "EstaPresente": true
+  }
+]
