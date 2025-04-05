@@ -12,3 +12,4 @@ C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarAp
 C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.pdb
 C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.genruntimeconfig.cache
 C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\ref\GestorEscolarApp.dll
+C:\Users\Gusti\source\programacionIII2025\primerTP\GestorEscolar\GestorEscolarApp\obj\Debug\net8.0\GestorEscolarApp.sourcelink.json
