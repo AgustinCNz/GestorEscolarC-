@@ -315,61 +315,70 @@ namespace Clase3Tp1.Servicios
 }
 
 
-/*    public static void SorteoEstudiante()
+public static void SorteoEstudiante()
 {
     Console.Clear();
-    var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
+    var estudiantes = JsonService.Cargar<Estudiante>("Datos/alumnos.json");
+    var asistencias = JsonService.Cargar<Asistencia>("Datos/asistencias.json");
 
-    // Filtrar estudiantes presentes que aún no han participado
-    var estudiantesPresentes = estudiantes.FindAll(e => e.Presente && !e.Participado);
+    string fechaHoy = DateTime.Today.ToString("yyyy-MM-dd");
 
-    if (estudiantesPresentes.Count == 0)
+    // Filtrar estudiantes presentes hoy
+    var presentesHoy = asistencias
+        .Where(a => a.Fecha.ToString("yyyy-MM-dd") == fechaHoy && a.EstaPresente)
+        .Select(a => a.DNI)
+        .ToList();
+
+    var candidatos = estudiantes
+        .Where(e => presentesHoy.Contains(e.DNI))
+        .ToList();
+
+    if (candidatos.Count == 0)
     {
-        Console.WriteLine("Todos los estudiantes presentes ya participaron. Reiniciando participación...");
-
-        foreach (var estudiante in estudiantes)
-        {
-            if (estudiante.Presente)
-                estudiante.Participado = false;
-        }
-
-        // Volver a cargar la lista con los reiniciados
-        estudiantesPresentes = estudiantes.FindAll(e => e.Presente);
+        Console.WriteLine("⚠ No hay estudiantes presentes hoy para realizar el sorteo.");
+        Console.ReadKey();
+        return;
     }
 
-    if (estudiantesPresentes.Count == 0)
+    // Verificar si todos ya participaron
+    if (candidatos.All(e => e.Participado))
     {
-        Console.WriteLine("❌ No hay estudiantes presentes para el sorteo.");
+        Console.WriteLine("🔁 Todos los estudiantes ya participaron. Reiniciando participación...");
+        foreach (var e in candidatos)
+        {
+            e.Participado = false;
+        }
+        JsonService.Guardar("Datos/alumnos.json", estudiantes);
+    }
+
+    // Buscar estudiantes que no participaron aún
+    var noParticiparon = candidatos
+        .Where(e => !e.Participado)
+        .ToList();
+
+    // Mostrar uno aleatorio
+    var random = new Random();
+    var seleccionado = noParticiparon[random.Next(noParticiparon.Count)];
+
+    Console.WriteLine($"\n🎯 Estudiante seleccionado: {seleccionado.Nombre} {seleccionado.Apellido} (DNI: {seleccionado.DNI})");
+
+    Console.Write("\n¿Confirmar participación? (1. Sí / 2. No): ");
+    string? confirmacion = Console.ReadLine()?.Trim();
+
+    if (confirmacion == "1")
+    {
+        seleccionado.Participado = true;
+        JsonService.Guardar("Datos/alumnos.json", estudiantes);
+        Console.WriteLine("✅ Participación registrada.");
     }
     else
     {
-        Random rand = new Random();
-        Estudiante seleccionado = estudiantesPresentes[rand.Next(estudiantesPresentes.Count)];
-
-        Console.WriteLine($"🎉 El estudiante seleccionado es: {seleccionado.Nombre} {seleccionado.Apellido}");
-        Console.Write("¿Confirmar participación? (S/N): ");
-        string respuesta = Console.ReadLine()?.Trim().ToUpper() ?? "N";
-
-        if (respuesta == "S")
-        {
-            // Marcar como que ya participó
-            var index = estudiantes.FindIndex(e => e.DNI == seleccionado.DNI);
-            if (index != -1)
-            {
-                estudiantes[index].Participado = true;
-                JsonService.Guardar(archivoEstudiantes, estudiantes);
-                Console.WriteLine("✅ Participación registrada.");
-            }
-        }
-        else
-        {
-            Console.WriteLine("ℹ El estudiante no participó. Seguirá en el próximo sorteo.");
-        }
+        Console.WriteLine("❌ No se registró la participación.");
     }
 
     Console.WriteLine("\nPresione una tecla para continuar...");
     Console.ReadKey();
-    }*/
+}
 
     }
 }

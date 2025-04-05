@@ -4,6 +4,6 @@ namespace Clase3Tp1.Modelos
     {
         public string DNI { get; set; }
         public DateTime Fecha { get; set; }
-        public bool Asistio { get; set; }
+        public bool EstaPresente { get; set; }
     }
 }

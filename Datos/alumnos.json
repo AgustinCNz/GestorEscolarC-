@@ -22,7 +22,7 @@
     "Apellido": "1",
     "Nombre": "1",
     "Correo": "1",
-    "CodigoGrupo": "",
+    "CodigoGrupo": "A",
     "Presente": false,
     "Participado": false
   },
@@ -31,7 +31,7 @@
     "Apellido": "2",
     "Nombre": "2",
     "Correo": "2",
-    "CodigoGrupo": "",
+    "CodigoGrupo": "1",
     "Presente": false,
     "Participado": false
   },
@@ -51,7 +51,7 @@
     "Correo": "4",
     "CodigoGrupo": "C",
     "Presente": false,
-    "Participado": false
+    "Participado": true
   },
   {
     "DNI": "5",
@@ -69,7 +69,7 @@
     "Correo": "6",
     "CodigoGrupo": "C",
     "Presente": false,
-    "Participado": false
+    "Participado": true
   },
   {
     "DNI": "7",

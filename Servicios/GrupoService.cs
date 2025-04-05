@@ -312,6 +312,85 @@ public static void MostrarGruposConEstudiantes()
 }
 
 
+
+public static void MostrarGruposIncompletos()
+{
+    Console.Clear();
+    var estudiantes = JsonService.Cargar<Estudiante>("Datos/alumnos.json");
+
+    var gruposIncompletos = estudiantes
+        .Where(e => !string.IsNullOrWhiteSpace(e.CodigoGrupo))
+        .GroupBy(e => e.CodigoGrupo)
+        .Where(g => g.Count() < 6)
+        .OrderBy(g => g.Key);
+
+    if (!gruposIncompletos.Any())
+    {
+        Console.WriteLine("✅ Todos los grupos tienen 6 o más estudiantes.");
+    }
+    else
+    {
+        Console.WriteLine("📋 Grupos con menos de 6 estudiantes:\n");
+        foreach (var grupo in gruposIncompletos)
+        {
+            Console.WriteLine($"📘 Grupo {grupo.Key} - {grupo.Count()} estudiante(s)");
+        }
+    }
+
+    Console.WriteLine("\nPresione una tecla para continuar...");
+    Console.ReadKey();
+}
+
+
+
+public static void SorteoPorGrupo()
+{
+    Console.Clear();
+    var grupos = JsonService.Cargar<Grupo>("Datos/grupos.json");
+
+    DateTime hoy = DateTime.Today;
+    string fechaHoy = hoy.ToString("yyyy-MM-dd");
+
+    // Filtrar grupos que aún no participaron hoy
+    var gruposDisponibles = grupos
+        .Where(g => !g.Participado)
+        .ToList();
+
+    if (gruposDisponibles.Count == 0)
+    {
+        Console.WriteLine("🔁 Todos los grupos ya participaron. Reiniciando participación...");
+        foreach (var grupo in grupos)
+        {
+            grupo.Participado = false;
+        }
+        JsonService.Guardar("Datos/grupos.json", grupos);
+
+        gruposDisponibles = grupos; // Vuelve a estar todos disponibles
+    }
+
+    if (gruposDisponibles.Count == 0)
+    {
+        Console.WriteLine("❌ No hay grupos para sortear.");
+        Console.ReadKey();
+        return;
+    }
+
+    // Sorteo aleatorio
+    var random = new Random();
+    var seleccionado = gruposDisponibles[random.Next(gruposDisponibles.Count)];
+
+    Console.WriteLine($"\n🎯 Grupo seleccionado: {seleccionado.CodigoGrupo}");
+
+    // Marcar como que participó
+    var grupoEnLista = grupos.FirstOrDefault(g => g.CodigoGrupo == seleccionado.CodigoGrupo);
+    if (grupoEnLista != null) grupoEnLista.Participado = true;
+
+    JsonService.Guardar("Datos/grupos.json", grupos);
+
+    Console.WriteLine("\nPresione una tecla para continuar...");
+    Console.ReadKey();
+}
+
         private static string LeerDato(string mensaje)
         {
             string dato;

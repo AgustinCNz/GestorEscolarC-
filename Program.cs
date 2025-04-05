@@ -27,7 +27,8 @@ class Program
                     MenuGrupos();
                     break;
                 case "3":
-                    //MenuAsistencias();
+                     MenuAsistencias();
+;
                     break;
                 case "4":
                     return;
@@ -70,7 +71,7 @@ class Program
                  EstudianteService.EliminarEstudiante();
                 break;
             case "5":
-                
+                EstudianteService.SorteoEstudiante();
                 break;
             case "6":
                 return; // Volver al menú principal
@@ -126,6 +127,13 @@ class Program
             case "6":
                 GrupoService.MostrarEstudiantesSinGrupo();
               break; // Volver al menú principal
+            case "7":
+                GrupoService.MostrarGruposIncompletos();
+              break;
+            case "8":
+                GrupoService.SorteoPorGrupo();
+              break;
+
             default:
                 Console.WriteLine("Opción inválida.");
                 Console.ReadKey();
@@ -137,21 +145,34 @@ class Program
 
 
 
-
-
-
-
-
-
-    static void MenuAsistencias()
+   
+}
+static void MenuAsistencias()
     {
         Console.Clear();
         Console.WriteLine("1) Registrar asistencia");
-        Console.WriteLine("2) Ver asistencia por alumno");
-        Console.WriteLine("3) Ver asistencia general");
+        Console.WriteLine("2) Ver asistencia por alumno , clases dictadas y porcentajes de asistencia");
+        Console.WriteLine("3) Ver asistencia por DNI o Apellido");
         Console.WriteLine("4) Volver");
 
         string? opcion = Console.ReadLine();
         if (opcion == "4") return;
+
+         switch (opcion)
+        {
+            case "1":
+               AsistenciaService.RegistrarAsistencia();
+                break;
+            case "2":
+                AsistenciaService.AsistenciasGeneral();
+                break;
+            case "3":
+           AsistenciaService.AsistenciaPorDniOApellido();
+                break;
+
+            default:
+                Console.WriteLine("Opción inválida.");
+                Console.ReadKey();
+                break;
     }
-}}
+    }}
