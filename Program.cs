@@ -153,10 +153,11 @@ static void MenuAsistencias()
         Console.WriteLine("1) Registrar asistencia");
         Console.WriteLine("2) Ver asistencia por alumno , clases dictadas y porcentajes de asistencia");
         Console.WriteLine("3) Ver asistencia por DNI o Apellido");
-        Console.WriteLine("4) Volver");
+        Console.WriteLine("4) Ver asistencia por mes anterior");
+        Console.WriteLine("5) Volver atras");
 
         string? opcion = Console.ReadLine();
-        if (opcion == "4") return;
+        if (opcion == "5") return;
 
          switch (opcion)
         {
@@ -168,6 +169,9 @@ static void MenuAsistencias()
                 break;
             case "3":
            AsistenciaService.AsistenciaPorDniOApellido();
+                break;
+                 case "4":
+           AsistenciaService.VerAsistenciaPorMesAnterior();
                 break;
 
             default:
