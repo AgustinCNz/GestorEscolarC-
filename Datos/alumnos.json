@@ -1,58 +1,74 @@
 [
-  
-    {
-      "DNI": "40.828.072",
-      "Apellido": "carrizo",
-      "Nombre": "cyntia",
-      "Correo": "ca@gmail.com",
-      "CodigoGrupo": "",
-      "Presente": false,
-      "Participado": false
-    },
-    {
-      "DNI": "40.828.073",
-      "Apellido": "lopez",
-      "Nombre": "juan",
-      "Correo": "juan1@gmail.com",
-      "CodigoGrupo": "",
-      "Presente": false,
-      "Participado": false
-    },
-    {
-      "DNI": "40.828.074",
-      "Apellido": "gomez",
-      "Nombre": "sofia",
-      "Correo": "sofia@gmail.com",
-      "CodigoGrupo": "",
-      "Presente": false,
-      "Participado": false
-    },
-    {
-      "DNI": "40.828.075",
-      "Apellido": "perez",
-      "Nombre": "lucas",
-      "Correo": "lucas@gmail.com",
-      "CodigoGrupo": "",
-      "Presente": false,
-      "Participado": false
-    },
-    {
-      "DNI": "40.828.076",
-      "Apellido": "rodriguez",
-      "Nombre": "martina",
-      "Correo": "martina@gmail.com",
-      "CodigoGrupo": "",
-      "Presente": false,
-      "Participado": false
-    },
-    {
-      "DNI": "40.828.077",
-      "Apellido": "fernandez",
-      "Nombre": "agustin",
-      "Correo": "agus@gmail.com",
-      "CodigoGrupo": "",
-      "Presente": false,
-      "Participado": false
-    }
-   
+  {
+    "DNI": "40.828.072",
+    "Apellido": "carrizo",
+    "Nombre": "cyntia",
+    "Correo": "ca@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "40.828.073",
+    "Apellido": "lopez",
+    "Nombre": "juan",
+    "Correo": "juan1@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "40.828.074",
+    "Apellido": "gomez",
+    "Nombre": "sofia",
+    "Correo": "sofia@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "40.828.075",
+    "Apellido": "perez",
+    "Nombre": "lucas",
+    "Correo": "lucas@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "40.828.076",
+    "Apellido": "rodriguez",
+    "Nombre": "martina",
+    "Correo": "martina@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "40.828.077",
+    "Apellido": "fernandez",
+    "Nombre": "agustin",
+    "Correo": "agus@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "11133344",
+    "Apellido": "correa",
+    "Nombre": "correa",
+    "Correo": "agustin@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "11112222",
+    "Apellido": "correa",
+    "Nombre": "Agustin",
+    "Correo": "agustin@gmail.com",
+    "CodigoGrupo": "",
+    "Presente": false,
+    "Participado": false
+  }
 ]
