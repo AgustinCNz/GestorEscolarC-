@@ -1,14 +1,18 @@
 [
   {
-    "CodigoGrupo": "",
-    "EstudiantesDNI": [],
-    "Participado": false
-  },
-  {
-    "CodigoGrupo": "a",
+    "CodigoGrupo": "B",
     "EstudiantesDNI": [
       "40.828.072"
     ],
-    "Participado": false
+    "Participado": false,
+    "UltimaParticipacion": "2025-04-18T00:00:00-03:00"
+  },
+  {
+    "CodigoGrupo": "A",
+    "EstudiantesDNI": [
+      "12345678"
+    ],
+    "Participado": true,
+    "UltimaParticipacion": "2025-04-18T00:00:00-03:00"
   }
 ]
