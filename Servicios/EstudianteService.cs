@@ -296,13 +296,13 @@ namespace Clase3Tp1.Servicios
 
 
 
-  public static void ModificarEstudiante()
+ public static void ModificarEstudiante()
 {
     Console.Clear();
     var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
 
-    Estudiante? estudiante = BuscarEstudiantePorDniOApellido("Modificar estudiante por:");
-    if (estudiante == null)
+    Estudiante? estudianteOriginal = BuscarEstudiantePorDniOApellido("Modificar estudiante por:");
+    if (estudianteOriginal == null)
     {
         Console.WriteLine("⚠ Estudiante no encontrado.");
         Console.WriteLine("↩ Volviendo al menú...");
@@ -311,7 +311,7 @@ namespace Clase3Tp1.Servicios
         return;
     }
 
-    int index = estudiantes.FindIndex(e => e.DNI == estudiante.DNI);
+    int index = estudiantes.FindIndex(e => e.DNI == estudianteOriginal.DNI);
     if (index == -1)
     {
         Console.WriteLine("⚠ No se pudo encontrar al estudiante en la lista original.");
@@ -321,7 +321,19 @@ namespace Clase3Tp1.Servicios
         return;
     }
 
-    MostrarDatosEstudiante(estudiante);
+    // Copia temporal del estudiante
+    Estudiante copiaEstudiante = new Estudiante
+    {
+        DNI = estudianteOriginal.DNI,
+        Apellido = estudianteOriginal.Apellido,
+        Nombre = estudianteOriginal.Nombre,
+        Correo = estudianteOriginal.Correo,
+        CodigoGrupo = estudianteOriginal.CodigoGrupo,
+        Participado = estudianteOriginal.Participado,
+        Presente = estudianteOriginal.Presente
+    };
+
+    MostrarDatosEstudiante(estudianteOriginal);
 
     bool seguirModificando = true;
     while (seguirModificando)
@@ -332,8 +344,7 @@ namespace Clase3Tp1.Servicios
         Console.WriteLine("3. CAMBIAR Nombre");
         Console.WriteLine("4. CAMBIAR Correo");
         Console.WriteLine("5. CAMBIAR Código de Grupo");
-        Console.WriteLine("6. Modificar todos");
-        Console.WriteLine("7. Salir sin modificar");
+        Console.WriteLine("6. Salir sin guardar");
         Console.Write("Opción: ");
         string opcion = Console.ReadLine()?.Trim() ?? "";
 
@@ -351,12 +362,12 @@ namespace Clase3Tp1.Servicios
                         Console.WriteLine("⚠ El DNI debe tener exactamente 8 números.");
                         continue;
                     }
-                    if (estudiantes.Any(e => e.DNI == nuevoDni && e != estudiante))
+                    if (estudiantes.Any(e => e.DNI == nuevoDni && e != estudianteOriginal))
                     {
                         Console.WriteLine("⚠ Ya existe otro estudiante con ese DNI.");
                         continue;
                     }
-                    estudiante.DNI = nuevoDni;
+                    copiaEstudiante.DNI = nuevoDni;
                     break;
                 }
                 break;
@@ -373,7 +384,7 @@ namespace Clase3Tp1.Servicios
                         Console.WriteLine("⚠ El apellido solo debe contener letras.");
                         continue;
                     }
-                    estudiante.Apellido = nuevoApellido;
+                    copiaEstudiante.Apellido = nuevoApellido;
                     break;
                 }
                 break;
@@ -390,7 +401,7 @@ namespace Clase3Tp1.Servicios
                         Console.WriteLine("⚠ El nombre solo debe contener letras.");
                         continue;
                     }
-                    estudiante.Nombre = nuevoNombre;
+                    copiaEstudiante.Nombre = nuevoNombre;
                     break;
                 }
                 break;
@@ -407,7 +418,7 @@ namespace Clase3Tp1.Servicios
                         Console.WriteLine("⚠ Solo se aceptan correos @gmail.com o @hotmail.com.");
                         continue;
                     }
-                    estudiante.Correo = nuevoCorreo;
+                    copiaEstudiante.Correo = nuevoCorreo;
                     break;
                 }
                 break;
@@ -421,7 +432,7 @@ namespace Clase3Tp1.Servicios
 
                     if (nuevoGrupo.Length == 1 && char.IsLetter(nuevoGrupo[0]))
                     {
-                        estudiante.CodigoGrupo = nuevoGrupo;
+                        copiaEstudiante.CodigoGrupo = nuevoGrupo;
                         break;
                     }
                     Console.WriteLine("⚠ El código de grupo debe ser una sola letra (A-Z).");
@@ -429,11 +440,6 @@ namespace Clase3Tp1.Servicios
                 break;
 
             case "6":
-                // Igual que antes, sin la opción de cancelar individualmente para todos, ya que modifica en lote.
-                // Si querés agregamos confirmación campo por campo también.
-                break;
-
-            case "7":
                 Console.WriteLine("❌ Modificación cancelada.");
                 return;
 
@@ -442,20 +448,32 @@ namespace Clase3Tp1.Servicios
                 continue;
         }
 
-        Console.WriteLine("✅ Modificación realizada correctamente.");
-        Console.WriteLine("\n¿Desea seguir modificando datos de este estudiante?");
+        Console.WriteLine("✅ Modificación temporal realizada.");
+        Console.WriteLine("\n¿Desea seguir modificando datos?");
         Console.WriteLine("1. Sí");
         Console.WriteLine("2. No, guardar cambios");
+        Console.WriteLine("3. Cancelar y descartar todos los cambios");
         string continuar = Console.ReadLine()?.Trim() ?? "";
-        if (continuar != "1") seguirModificando = false;
+
+        if (continuar == "3")
+        {
+            Console.WriteLine("❌ Modificaciones descartadas.");
+            return;
+        }
+
+        if (continuar != "1")
+        {
+            seguirModificando = false;
+        }
     }
 
-    estudiantes[index] = estudiante;
+    estudiantes[index] = copiaEstudiante;
     JsonService.Guardar(archivoEstudiantes, estudiantes);
     Console.WriteLine("✅ Cambios guardados correctamente.");
     Console.WriteLine("Presione una tecla para continuar...");
     Console.ReadKey();
 }
+
 
 
 

@@ -20,7 +20,10 @@ namespace Clase3Tp1.Servicios
     string codigoGrupo;
     while (true)
     {
+        Console.WriteLine("0) Volver al menú anterior");
         codigoGrupo = LeerDato("Ingrese el código del grupo (solo una letra A-Z): ").ToUpper();
+        if (codigoGrupo == "0") return;
+
         if (codigoGrupo.Length != 1 || !char.IsLetter(codigoGrupo[0]))
         {
             Console.WriteLine("⚠ El código del grupo debe ser una única letra (A-Z).");
@@ -33,10 +36,42 @@ namespace Clase3Tp1.Servicios
 
     while (integrantes.Count < 6)
     {
-        string dni = LeerDato("Ingrese el DNI del estudiante (o escriba FINALIZAR): ");
-        if (dni.ToUpper() == "FINALIZAR") break;
+        Console.WriteLine("\nIngrese el DNI del estudiante a agregar al grupo:");
+        Console.WriteLine("- Escriba FINALIZAR para terminar.");
+        Console.WriteLine("- Escriba LISTA para ver estudiantes sin grupo.");
+        Console.WriteLine("- Escriba 0 para cancelar y volver.\n");
 
-        Estudiante? estudiante = estudiantes.Find(e => e.DNI == dni);
+        string entrada = LeerDato("DNI / COMANDO: ").ToUpper();
+
+        if (entrada == "FINALIZAR") break;
+        if (entrada == "0") return;
+
+        if (entrada == "LISTA")
+        {
+            Console.WriteLine("\n📋 Estudiantes sin grupo:");
+            var sinGrupo = estudiantes
+                .Where(e => string.IsNullOrWhiteSpace(e.CodigoGrupo))
+                .OrderBy(e => e.Apellido)
+                .ThenBy(e => e.Nombre)
+                .ToList();
+
+            if (sinGrupo.Count == 0)
+            {
+                Console.WriteLine("✅ Todos los estudiantes están asignados a un grupo.");
+            }
+            else
+            {
+                foreach (var e in sinGrupo)
+                {
+                    Console.WriteLine($"- {e.Apellido}, {e.Nombre} (DNI: {e.DNI})");
+                }
+            }
+
+            Console.WriteLine();
+            continue;
+        }
+
+        Estudiante? estudiante = estudiantes.Find(e => e.DNI == entrada);
         if (estudiante == null)
         {
             Console.WriteLine("⚠ El estudiante no está registrado.");
@@ -52,7 +87,16 @@ namespace Clase3Tp1.Servicios
         }
 
         estudiante.CodigoGrupo = codigoGrupo;
-        integrantes.Add(dni);
+        integrantes.Add(estudiante.DNI);
+        Console.WriteLine("✅ Estudiante agregado al grupo.");
+    }
+
+    if (integrantes.Count == 0)
+    {
+        Console.WriteLine("❌ No se agregó ningún estudiante. Operación cancelada.");
+        Console.WriteLine("Presione una tecla para continuar...");
+        Console.ReadKey();
+        return;
     }
 
     grupos.Add(new Grupo { CodigoGrupo = codigoGrupo, EstudiantesDNI = integrantes });
@@ -60,8 +104,10 @@ namespace Clase3Tp1.Servicios
     JsonService.Guardar(archivoEstudiantes, estudiantes);
 
     Console.WriteLine("✅ Grupo creado exitosamente.");
+    Console.WriteLine("Presione una tecla para continuar...");
     Console.ReadKey();
 }
+
 
         
 
@@ -76,6 +122,7 @@ namespace Clase3Tp1.Servicios
     if (grupo.Count == 0)
     {
         Console.WriteLine("⚠ No hay estudiantes en este grupo o el grupo no existe.");
+        Console.WriteLine("Presione una tecla para continuar...");
         Console.ReadKey();
         return;
     }
@@ -108,6 +155,7 @@ namespace Clase3Tp1.Servicios
     }
 
     JsonService.Guardar("Datos/alumnos.json", estudiantes);
+    Console.WriteLine("Presione una tecla para continuar...");
     Console.ReadKey();
 }
 
@@ -180,6 +228,7 @@ public static void MoverEstudianteDeGrupo()
     if (estudiante == null || string.IsNullOrEmpty(estudiante.CodigoGrupo))
     {
         Console.WriteLine("⚠ Estudiante no encontrado o no pertenece a un grupo.");
+        Console.WriteLine("Presione una tecla para continuar...");
         Console.ReadKey();
         return;
     }
@@ -243,6 +292,7 @@ public static void EliminarGrupo()
     if (estudiantesDelGrupo.Count == 0)
     {
         Console.WriteLine("⚠ No se encontraron estudiantes en ese grupo.");
+        Console.WriteLine("Presione una tecla para continuar...");
         Console.ReadKey();
         return;
     }
@@ -373,28 +423,20 @@ public static void SorteoPorGrupo()
     var grupos = JsonService.Cargar<Grupo>("Datos/grupos.json");
 
     DateTime hoy = DateTime.Today;
-    string fechaHoy = hoy.ToString("yyyy-MM-dd");
+    int mesActual = hoy.Month;
+    int anioActual = hoy.Year;
 
-    // Filtrar grupos que aún no participaron hoy
+    // Filtrar grupos que aún NO participaron en este mes
     var gruposDisponibles = grupos
-        .Where(g => !g.Participado)
+        .Where(g => g.UltimaParticipacion == null || 
+                    g.UltimaParticipacion.Value.Month != mesActual ||
+                    g.UltimaParticipacion.Value.Year != anioActual)
         .ToList();
 
     if (gruposDisponibles.Count == 0)
     {
-        Console.WriteLine("🔁 Todos los grupos ya participaron. Reiniciando participación...");
-        foreach (var grupo in grupos)
-        {
-            grupo.Participado = false;
-        }
-        JsonService.Guardar("Datos/grupos.json", grupos);
-
-        gruposDisponibles = grupos; // Vuelve a estar todos disponibles
-    }
-
-    if (gruposDisponibles.Count == 0)
-    {
-        Console.WriteLine("❌ No hay grupos para sortear.");
+        Console.WriteLine("✅ Todos los grupos ya participaron este mes.");
+        Console.WriteLine("Presione una tecla para continuar...");
         Console.ReadKey();
         return;
     }
@@ -405,15 +447,20 @@ public static void SorteoPorGrupo()
 
     Console.WriteLine($"\n🎯 Grupo seleccionado: {seleccionado.CodigoGrupo}");
 
-    // Marcar como que participó
+    // Marcar fecha de participación actual
     var grupoEnLista = grupos.FirstOrDefault(g => g.CodigoGrupo == seleccionado.CodigoGrupo);
-    if (grupoEnLista != null) grupoEnLista.Participado = true;
+    if (grupoEnLista != null)
+    {
+        grupoEnLista.UltimaParticipacion = hoy;
+    }
 
     JsonService.Guardar("Datos/grupos.json", grupos);
 
-    Console.WriteLine("\nPresione una tecla para continuar...");
+    Console.WriteLine("\n✅ Participación registrada.");
+    Console.WriteLine("Presione una tecla para continuar...");
     Console.ReadKey();
 }
+
 
         private static string LeerDato(string mensaje)
         {
