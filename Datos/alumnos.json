@@ -4,9 +4,9 @@
     "Apellido": "carrizo",
     "Nombre": "cyntia",
     "Correo": "ca@gmail.com",
-    "CodigoGrupo": "a",
+    "CodigoGrupo": "B",
     "Presente": false,
-    "Participado": false
+    "Participado": true
   },
   {
     "DNI": "40.828.073",
@@ -15,7 +15,7 @@
     "Correo": "1gustin_correa@hotmail.com",
     "CodigoGrupo": "A",
     "Presente": false,
-    "Participado": false
+    "Participado": true
   },
   {
     "DNI": "40.828.074",
@@ -51,7 +51,7 @@
     "Correo": "gustin_corr2ea@hotmail.com",
     "CodigoGrupo": "C",
     "Presente": false,
-    "Participado": false
+    "Participado": true
   },
   {
     "DNI": "40.828.078",
@@ -68,6 +68,15 @@
     "Nombre": "Juan Ignacio8",
     "Correo": "gustin_correa@hotmail.com",
     "CodigoGrupo": "C",
+    "Presente": false,
+    "Participado": false
+  },
+  {
+    "DNI": "12345678",
+    "Apellido": "caram",
+    "Nombre": "luis",
+    "Correo": "luiscaram@gmail.com",
+    "CodigoGrupo": "",
     "Presente": false,
     "Participado": false
   }

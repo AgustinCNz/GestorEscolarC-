@@ -8,58 +8,103 @@ namespace Clase3Tp1.Servicios
 {
     public static class AsistenciaService
     {
-        public static void RegistrarAsistencia()
+      public static void RegistrarAsistencia()
+{
+    Console.Clear();
+    var estudiantes = JsonService.Cargar<Estudiante>("Datos/alumnos.json");
+    var asistencias = JsonService.Cargar<Asistencia>("Datos/asistencias.json");
+
+    DateTime hoy = DateTime.Today;
+
+    Console.WriteLine($"🗓 Registrando asistencia para el día: {hoy:yyyy-MM-dd}\n");
+    Console.WriteLine("1) Primera asistencia del día (Entrada)");
+    Console.WriteLine("2) Segunda asistencia del día (Salida)");
+    Console.WriteLine("0) Volver al menú");
+    Console.Write("Opción: ");
+    string opcion = Console.ReadLine()?.Trim() ?? "";
+
+    if (opcion == "0") return;
+    if (opcion != "1" && opcion != "2")
+    {
+        Console.WriteLine("❌ Opción inválida.");
+        Console.ReadKey();
+        return;
+    }
+
+    bool esPrimeraAsistencia = opcion == "1";
+    string tipoAsistencia = esPrimeraAsistencia ? "Entrada" : "Salida";
+
+    var estudiantesOrdenados = estudiantes
+        .Where(e => !string.IsNullOrWhiteSpace(e.CodigoGrupo))
+        .OrderBy(e => e.Apellido)
+        .ThenBy(e => e.Nombre)
+        .ToList();
+
+    foreach (var estudiante in estudiantesOrdenados)
+    {
+        // Verificar asistencias del día
+        int asistenciasHoy = asistencias
+            .Count(a => a.DNI == estudiante.DNI && a.Fecha.Date == hoy.Date);
+
+        if (esPrimeraAsistencia && asistenciasHoy >= 1)
         {
-            Console.Clear();
-            var estudiantes = JsonService.Cargar<Estudiante>("Datos/alumnos.json");
-            var asistencias = JsonService.Cargar<Asistencia>("Datos/asistencias.json");
-
-            DateTime hoy = DateTime.Today;
-
-            Console.WriteLine($"🗓 Registrando asistencia para el día: {hoy:yyyy-MM-dd}\n");
-
-            var estudiantesOrdenados = estudiantes
-                .Where(e => !string.IsNullOrWhiteSpace(e.CodigoGrupo))
-                .OrderBy(e => e.Apellido)
-                .ThenBy(e => e.Nombre)
-                .ToList();
-
-            foreach (var estudiante in estudiantesOrdenados)
-            {
-                Console.WriteLine($"👤 {estudiante.Apellido}, {estudiante.Nombre} (DNI: {estudiante.DNI})");
-                Console.Write("Presione P si está Presente o A si está Ausente: ");
-
-                var tecla = Console.ReadKey(true).Key;
-                bool presente = false;
-
-                if (tecla == ConsoleKey.P)
-                {
-                    presente = true;
-                    Console.WriteLine("PRESENTE");
-                }
-                else if (tecla == ConsoleKey.A)
-                {
-                    presente = false;
-                    Console.WriteLine("AUSENTE");
-                }
-                else
-                {
-                    Console.WriteLine("❌ Tecla inválida. Se marca como AUSENTE por defecto.");
-                }
-
-                asistencias.Add(new Asistencia
-                {
-                    DNI = estudiante.DNI,
-                    Fecha = hoy,
-                    EstaPresente = presente
-                });
-            }
-
-            JsonService.Guardar("Datos/asistencias.json", asistencias);
-            Console.WriteLine("\n✅ Asistencias registradas correctamente.");
-            Console.WriteLine("Presione una tecla para continuar...");
-            Console.ReadKey();
+            Console.WriteLine($"\n⚠ {estudiante.Apellido}, {estudiante.Nombre} ya tiene registrada la Entrada hoy.");
+            continue;
         }
+        else if (!esPrimeraAsistencia && asistenciasHoy != 1)
+        {
+            Console.WriteLine($"\n⚠ No se puede registrar la Salida sin haber registrado antes la Entrada para {estudiante.Apellido}, {estudiante.Nombre}.");
+            continue;
+        }
+
+        Console.WriteLine($"\n👤 {estudiante.Apellido}, {estudiante.Nombre} (DNI: {estudiante.DNI})");
+
+        bool entradaValida = false;
+        bool presente = false;
+
+        while (!entradaValida)
+        {
+            Console.Write($"Presione P si está Presente, A si está Ausente, o 0 para cancelar registro de {tipoAsistencia}: ");
+            var tecla = Console.ReadKey(true).Key;
+
+            if (tecla == ConsoleKey.D0 || tecla == ConsoleKey.NumPad0)
+            {
+                Console.WriteLine("↩ Asistencia cancelada. Volviendo al menú...");
+                return;
+            }
+            else if (tecla == ConsoleKey.P)
+            {
+                presente = true;
+                entradaValida = true;
+                Console.WriteLine("PRESENTE");
+            }
+            else if (tecla == ConsoleKey.A)
+            {
+                presente = false;
+                entradaValida = true;
+                Console.WriteLine("AUSENTE");
+            }
+            else
+            {
+                Console.WriteLine("❌ Tecla inválida. Intente nuevamente.");
+            }
+        }
+
+        asistencias.Add(new Asistencia
+        {
+            DNI = estudiante.DNI,
+            Fecha = hoy,
+            EstaPresente = presente
+        });
+    }
+
+    JsonService.Guardar("Datos/asistencias.json", asistencias);
+    Console.WriteLine("\n✅ Asistencias registradas correctamente.");
+    Console.WriteLine("Presione una tecla para continuar...");
+    Console.ReadKey();
+}
+
+
 
 
 
@@ -70,20 +115,17 @@ namespace Clase3Tp1.Servicios
     var estudiantes = JsonService.Cargar<Estudiante>("Datos/alumnos.json");
     var asistencias = JsonService.Cargar<Asistencia>("Datos/asistencias.json");
 
-    // Obtener mes y año actual del sistema
     DateTime hoy = DateTime.Today;
     int mesActual = hoy.Month;
     int anioActual = hoy.Year;
 
-    // Filtrar asistencias del mes y año actual
     var asistenciasMes = asistencias
         .Where(a => a.Fecha.Month == mesActual && a.Fecha.Year == anioActual)
         .ToList();
 
-    // Calcular clases dictadas en el mes actual
+    // ✅ Calcular clases del mes (una por cada tipo de asistencia por día)
     int clasesDelMes = asistenciasMes
-        .Select(a => a.Fecha.ToString("yyyy-MM-dd"))
-        .Distinct()
+        .GroupBy(a => new { a.Fecha.Date, a.EstaPresente }) // Entrada y salida por día
         .Count();
 
     Console.WriteLine($"📆 Reporte del mes: {mesActual:00}/{anioActual}");
@@ -113,6 +155,7 @@ namespace Clase3Tp1.Servicios
     Console.WriteLine("\nPresione una tecla para continuar...");
     Console.ReadKey();
 }
+
 
 
 public static void AsistenciaPorDniOApellido()
@@ -163,14 +206,7 @@ public static void AsistenciaPorDniOApellido()
         ? (presentes * 100.0 / asistenciasAlumno.Count)
         : 0;
 
-/*Console.WriteLine("{0,-15} {1,-20} {2,-10}", "DNI", "Nombre", "Asistencia");
-Console.WriteLine("{0,-15} {1,-20} {2,-10}", estudiante.DNI, estudiante.Nombre, estudiante.Presente);
-   */
 
-    // Console.WriteLine($"\n📋 Asistencias de {estudiante.Nombre} {estudiante.Apellido} (DNI: {estudiante.DNI}):");
-    // Console.WriteLine($"✅ Presentes: {presentes}");
-    // Console.WriteLine($"❌ Ausentes: {ausentes}");
-    // Console.WriteLine($"📊 Porcentaje de asistencia: {porcentaje:F1}%");
  Console.WriteLine();
     Console.WriteLine("📋 Registro de asistencia del estudiante:\n");
     Console.WriteLine("{0,-15} {1,-15} {2,-20} {3,25} {4,10} {5,15}", "DNI", "Apellido", "Nombre", "Presente", "Ausente", "% Asistencia");
