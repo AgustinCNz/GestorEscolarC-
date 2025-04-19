@@ -6,5 +6,7 @@ namespace Clase3Tp1.Modelos
 
         public DateTime Fecha { get; set; }
         public bool EstaPresente { get; set; }
+
+        
     }
 }

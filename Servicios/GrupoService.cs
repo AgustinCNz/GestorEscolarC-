@@ -10,47 +10,59 @@ namespace Clase3Tp1.Servicios
         private static string archivoGrupos = "Datos/grupos.json";
         private static string archivoEstudiantes = "Datos/alumnos.json";
 
-        public static void CrearGrupo()
+       public static void CrearGrupo()
+{
+    Console.Clear();
+
+    var grupos = JsonService.Cargar<Grupo>(archivoGrupos);
+    var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
+
+    string codigoGrupo;
+    while (true)
+    {
+        codigoGrupo = LeerDato("Ingrese el código del grupo (solo una letra A-Z): ").ToUpper();
+        if (codigoGrupo.Length != 1 || !char.IsLetter(codigoGrupo[0]))
         {
-            Console.Clear();
-
-            var grupos = JsonService.Cargar<Grupo>(archivoGrupos);
-            var estudiantes = JsonService.Cargar<Estudiante>(archivoEstudiantes);
-
-            string codigoGrupo = LeerDato("Ingrese el código del grupo: ");
-            List<string> integrantes = new();
-
-            while (integrantes.Count < 6)
-            {
-                string dni = LeerDato("Ingrese el DNI del estudiante (o escriba FINALIZAR): ");
-                if (dni.ToUpper() == "FINALIZAR") break;
-
-                Estudiante? estudiante = estudiantes.Find(e => e.DNI == dni);
-                if (estudiante == null)
-                {
-                    Console.WriteLine("⚠ El estudiante no está registrado.");
-                    continue;
-                }
-
-                if (!string.IsNullOrEmpty(estudiante.CodigoGrupo))
-                {
-                    Console.WriteLine($"⚠ El estudiante ya pertenece al grupo {estudiante.CodigoGrupo}.");
-                    Console.Write("¿Desea cambiarlo a este grupo? (SI/NO): ");
-                    string respuesta = Console.ReadLine()?.Trim().ToUpper() ?? "NO";
-                    if (respuesta != "SI") continue;
-                }
-
-                estudiante.CodigoGrupo = codigoGrupo;
-                integrantes.Add(dni);
-            }
-
-            grupos.Add(new Grupo { CodigoGrupo = codigoGrupo, EstudiantesDNI = integrantes });
-            JsonService.Guardar(archivoGrupos, grupos);
-            JsonService.Guardar(archivoEstudiantes, estudiantes);
-
-            Console.WriteLine("✅ Grupo creado exitosamente.");
-            Console.ReadKey();
+            Console.WriteLine("⚠ El código del grupo debe ser una única letra (A-Z).");
+            continue;
         }
+        break;
+    }
+
+    List<string> integrantes = new();
+
+    while (integrantes.Count < 6)
+    {
+        string dni = LeerDato("Ingrese el DNI del estudiante (o escriba FINALIZAR): ");
+        if (dni.ToUpper() == "FINALIZAR") break;
+
+        Estudiante? estudiante = estudiantes.Find(e => e.DNI == dni);
+        if (estudiante == null)
+        {
+            Console.WriteLine("⚠ El estudiante no está registrado.");
+            continue;
+        }
+
+        if (!string.IsNullOrEmpty(estudiante.CodigoGrupo))
+        {
+            Console.WriteLine($"⚠ El estudiante ya pertenece al grupo {estudiante.CodigoGrupo}.");
+            Console.Write("¿Desea cambiarlo a este grupo? (SI/NO): ");
+            string respuesta = Console.ReadLine()?.Trim().ToUpper() ?? "NO";
+            if (respuesta != "SI") continue;
+        }
+
+        estudiante.CodigoGrupo = codigoGrupo;
+        integrantes.Add(dni);
+    }
+
+    grupos.Add(new Grupo { CodigoGrupo = codigoGrupo, EstudiantesDNI = integrantes });
+    JsonService.Guardar(archivoGrupos, grupos);
+    JsonService.Guardar(archivoEstudiantes, estudiantes);
+
+    Console.WriteLine("✅ Grupo creado exitosamente.");
+    Console.ReadKey();
+}
+
         
 
         public static void ModificarGrupo()
@@ -178,7 +190,18 @@ public static void MoverEstudianteDeGrupo()
     Console.WriteLine($"📌 DNI: {estudiante.DNI}");
     Console.WriteLine($"Actualmente en el grupo: {estudiante.CodigoGrupo}");
 
-    string nuevoGrupo = LeerDato("Ingrese el código del nuevo grupo: ");
+    string nuevoGrupo;
+    while (true)
+    {
+        nuevoGrupo = LeerDato("Ingrese el código del nuevo grupo (solo una letra A-Z): ").ToUpper();
+        if (nuevoGrupo.Length != 1 || !char.IsLetter(nuevoGrupo[0]))
+        {
+            Console.WriteLine("⚠ El código del grupo debe ser una única letra (A-Z).");
+            continue;
+        }
+        break;
+    }
+
     List<Estudiante> grupoDestino = estudiantes.FindAll(e => e.CodigoGrupo == nuevoGrupo);
 
     if (grupoDestino.Count >= 6)
@@ -205,6 +228,7 @@ public static void MoverEstudianteDeGrupo()
     Console.WriteLine("\nPresione una tecla para continuar...");
     Console.ReadKey();
 }
+
 
 
 public static void EliminarGrupo()
